@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #222222;
+  color: #fff;
+}
+
+.life {
+  display: block;
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.life #lifes {
+  background-color: #057;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 35px;
+}
+
+#word-container {
+  width: 85%;
+  max-width: 600px;
+  margin: 75px auto 45px auto;
+  font-size: 48px;
+  display: flex;
+  justify-content: center;
+}
+#word-container span {
+  position: relative;
+  display: inline-block;
+  background-color: #057;
+  width: 48px;
+  height: 8px;
+  text-align: center;
+  margin: 0 10px;
+}
+#word-container span p {
+  position: absolute;
+  top: -47.5px;
+  left: calc(50% - 17px);
+  color: #fff;
+}
+
+#keyboard {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 10px;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 750px;
+  padding: 12px;
+  background-color: #444;
+  border-radius: 5px;
+}
+#keyboard span {
+  color: #000;
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  background-color: #f0f0f0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+#keyboard span:active {
+  transform: scale(0.9);
+}
