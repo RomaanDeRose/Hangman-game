@@ -42,7 +42,7 @@ body {
 #word-container span p {
   position: absolute;
   top: -47.5px;
-  left: calc(50% - 17px);
+  left: calc(50% - 16.5px);
   color: #fff;
 }
 
