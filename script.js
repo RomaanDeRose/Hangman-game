@@ -44,81 +44,100 @@ const confettiWin = () => {
 // TECLADO
 const keyboard = document.getElementById("keyboard");
 const keys = [
-  "Q",
-  "w",
-  "E",
-  "R",
-  "T",
-  "Y",
-  "U",
-  "I",
-  "O",
-  "P",
-  "A",
-  "S",
-  "D",
-  "F",
-  "G",
-  "H",
-  "J",
-  "K",
-  "L",
-  "Ñ",
-  "Z",
-  "X",
-  "C",
-  "V",
-  "B",
-  "N",
-  "M",
+  ["Q", "w", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ"],
+  ["Z", "X", "C", "V", "B", "N", "M"],
 ];
-keys.forEach(
-  (key) => (keyboard.innerHTML += `<span id="key-${key}">${key}</span>`)
-);
+keys.forEach((key) => {
+  const row = document.createElement("div");
+  row.classList.add("keyboard-row");
+  keyboard.appendChild(row);
+
+  key.forEach((letter) => {
+    row.innerHTML += `<button id="key-${letter}" class="key">${letter}</button>`;
+  });
+});
 
 const keyElements = [];
 for (let i = 0; i < keys.length; i++) {
-  const keyElement = document.getElementById(`key-${keys[i]}`);
-  keyElements.push({ element: keyElement, value: keys[i], used: false });
+  for (let j = 0; j < keys[i].length; j++) {
+    const keyElement = document.getElementById(`key-${keys[i][j]}`);
+    keyElements.push({ element: keyElement, value: keys[i][j], used: false });
+  }
 }
 
+const drawLetter = (containerLetter, letter) => {
+  const letterContainer = document.createElement("div");
+  letterContainer.classList.add("letter");
+  letterContainer.textContent = letter;
+  containerLetter.appendChild(letterContainer);
+};
+
 // MUESTRA LETRA POR LETRA
+const WORDS = [
+  "deporte",
+  "micro",
+  "programa",
+  "ahorcado",
+  "tenis",
+  "nieve",
+  "presidente",
+  "profesional",
+  "computadora",
+  "teclado",
+  "botella",
+  "casa",
+  "juego",
+  "lenguaje",
+  "carrera",
+  "pantalla",
+  "celular",
+  "computadora",
+  "cable",
+  "auriculares",
+];
+
 const containerWord = document.getElementById("word-container");
-const word = "deporte".toUpperCase();
+const word = WORDS[Math.floor(Math.random() * WORDS.length)].toUpperCase();
 const lettersCorrects = "".padStart(word.length, " ").split("");
 for (let i = 0; i < word.length; i++) {
-  containerWord.innerHTML += `<span> <p>${lettersCorrects[i]}</p> </span>`;
+  drawLetter(containerWord, lettersCorrects[i]);
 }
 
 // JUEGO
-const lifesCount = document.getElementById("lifes");
-let lifes = 6;
-lifesCount.textContent = lifes;
+const resetBtn = document.getElementById("reset");
+resetBtn.style.display = "none";
+const resetGame = () => {
+  resetBtn.style.display = "block";
+  resetBtn.addEventListener("click", () => {
+    window.location.reload();
+  });
+};
+
+const livesCount = document.getElementById("lives");
+let lives = 6;
+livesCount.textContent = lives;
 
 keyElements.forEach((key) => {
-  const letter = key.element;
-  letter.addEventListener("click", (e) => {
+  key.element.addEventListener("click", (e) => {
     e.preventDefault();
-    letter.style.backgroundColor = "#777";
-    if (key.used) {
-      const notifError = new Notyf({
-        duration: 1500,
-        position: { x: "center", y: "top" },
-      });
-      notifError.error("Ya usaste esta letra");
-    } else {
+    key.element.style.backgroundColor = "#ea545545";
+    key.element.style.border = "1px solid #ea5455";
+    key.element.style.pointerEvents = "none";
+    if (!key.used) {
       key.used = true;
       if (word.includes(key.value)) {
+        key.element.style.backgroundColor = "#54ea8145";
+        key.element.style.border = "1px solid #54ea81";
         containerWord.innerHTML = "";
         for (let i = 0; i < word.length; i++) {
           word[i] === key.value ? (lettersCorrects[i] = key.value) : null;
-          containerWord.innerHTML += `<span> <p>${lettersCorrects[i]}</p> </span>`;
+          drawLetter(containerWord, lettersCorrects[i]);
         }
       } else {
-        lifes--;
-        lifesCount.textContent = lifes;
+        lives--;
+        livesCount.textContent = lives;
       }
-      console.log(lettersCorrects);
     }
 
     if (lettersCorrects.join("") === word) {
@@ -129,15 +148,18 @@ keyElements.forEach((key) => {
       });
       notifSuccess.success("¡Felicidades! Has ganado");
       confettiWin();
+      resetGame();
     }
 
-    if (lifes === 0) {
+    if (lives === 0) {
       keyboard.style.display = "none";
       const notifError = new Notyf({
         duration: 3500,
         position: { x: "center", y: "top" },
+        className: "error",
       });
       notifError.error("La palabra era " + word);
+      resetGame();
     }
   });
 });

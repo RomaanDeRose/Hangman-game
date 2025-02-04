@@ -11,10 +11,33 @@
     <title>Hangman Game</title>
   </head>
   <body>
-    <h1>Hangman Game</h1>
-    <p class="life">vidas: <span id="lifes"></span></p>
-    <div id="word-container"></div>
-    <div id="keyboard"></div>
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hangman Game</title>
+      </head>
+      <body>
+        <div class="game-container">
+          <h1>Hangman Game</h1>
+
+          <p class="lives">
+            VIDAS: <span class="lives-count" id="lives"></span>
+          </p>
+
+          <div class="hangman-drawing">
+            <!-- Área para dibujar el ahorcado -->
+          </div>
+
+          <div class="word-container" id="word-container"></div>
+
+          <div class="keyboard" id="keyboard"></div>
+
+          <button id="reset">Nueva Palabra</button>
+        </div>
+      </body>
+    </html>
 
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
