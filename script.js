@@ -3,6 +3,7 @@ const confettiWin = () => {
   const count = 200,
     defaults = {
       origin: { y: 0.7 },
+      colors: ["#ea5455", "#e84545", "#2d4059"],
     };
 
   function fire(particleRatio, opts) {
@@ -170,8 +171,14 @@ const isLetter = (str) =>
 document.addEventListener("keyup", (e) => {
   e.preventDefault();
   const key = e.key.toUpperCase();
-  if (isLetter(key) && !keyElements.find((k) => k.value === key).used) {
+  if (
+    isLetter(key) &&
+    !keyElements.find((k) => k.value === key).used &&
+    lives > 0
+  ) {
     const keyElement = keyElements.find((k) => k.value === key);
     keyElement.element.click();
   }
+
+  if (key === "ENTER") resetBtn.click();
 });
