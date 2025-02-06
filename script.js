@@ -121,8 +121,6 @@ livesCount.textContent = lives;
 keyElements.forEach((key) => {
   key.element.addEventListener("click", (e) => {
     e.preventDefault();
-    key.element.style.backgroundColor = "#ea545545";
-    key.element.style.border = "1px solid #ea5455";
     key.element.style.pointerEvents = "none";
     if (!key.used) {
       key.used = true;
@@ -135,6 +133,8 @@ keyElements.forEach((key) => {
           drawLetter(containerWord, lettersCorrects[i]);
         }
       } else {
+        key.element.style.backgroundColor = "#ea545545";
+        key.element.style.border = "1px solid #ea5455";
         lives--;
         livesCount.textContent = lives;
       }
@@ -162,4 +162,16 @@ keyElements.forEach((key) => {
       resetGame();
     }
   });
+});
+
+const isLetter = (str) =>
+  str.length === 1 && str.match(/[a-z]/i) ? true : false;
+
+document.addEventListener("keyup", (e) => {
+  e.preventDefault();
+  const key = e.key.toUpperCase();
+  if (isLetter(key) && !keyElements.find((k) => k.value === key).used) {
+    const keyElement = keyElements.find((k) => k.value === key);
+    keyElement.element.click();
+  }
 });
