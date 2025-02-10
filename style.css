@@ -4,12 +4,11 @@
   box-sizing: border-box;
 }
 
+/* rojo, azul, rosa, violeta, naranja*/
 :root {
   --primary: #2d4059;
-  --secondary: #ea5455;
   --background: #1a1a1a;
   --text: #decdc3;
-  --accent: #e84545;
   --surface: #222831;
 }
 
@@ -17,6 +16,45 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.theme {
+  background-color: var(--surface);
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem 0 0 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 0.2rem;
+  position: fixed;
+  top: calc(50% - 9rem);
+  right: -278px;
+  transition: right 0.3s ease;
+}
+
+.theme-btn {
+  color: var(--text);
+  font-size: 2rem;
+  padding: 0.2rem;
+  border-radius: 0.8rem 0 0 0.8rem;
+  cursor: pointer;
+}
+.theme-btn:hover .lives-count {
+  background-color: blue;
+}
+.theme-options {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-contet: space-around;
+}
+.theme-options .theme-option {
+  width: 30px;
+  height: 22px;
+  border-radius: 0.2rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
 }
 
 body {
@@ -117,7 +155,7 @@ h1 {
 .letter:hover {
   transform: translateY(-5px);
   border-bottom-color: var(--secondary);
-  box-shadow: 0 5px 15px rgba(234, 84, 85, 0.2);
+  box-shadow: 0 5px 15px var(--shadowColor2);
 }
 
 .keyboard {
@@ -130,7 +168,7 @@ h1 {
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
 }
 
 .keyboard-row {
@@ -154,9 +192,9 @@ h1 {
 
 .key:hover {
   background-color: var(--secondary);
-  transform: scale(1.1);
+  transform: scale(1.05);
   border-color: transparent;
-  box-shadow: 0 0 15px rgba(234, 84, 85, 0.3);
+  box-shadow: 0 0 15px var(--shadowColor);
 }
 
 .key:active {
@@ -178,7 +216,7 @@ h1 {
   cursor: pointer;
 }
 #reset:hover {
-  box-shadow: 0 0 15px rgba(234, 84, 85, 0.3);
+  box-shadow: 0 0 15px var(--shadowColor);
 }
 #reset:active {
   transform: scale(0.95);
